@@ -1,0 +1,254 @@
+import React from 'react';
+
+interface BrandLogoProps {
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  showText?: boolean;
+  showSubtitle?: boolean;
+  textColor?: 'dark' | 'light';
+  className?: string;
+}
+
+export const BrandLogo: React.FC<BrandLogoProps> = ({
+  size = 'md',
+  showText = true,
+  showSubtitle = true,
+  textColor = 'dark',
+  className = ''
+}) => {
+  const sizeMap = {
+    xs: { icon: 34, text: 'text-base', sub: 'text-[9px]' },
+    sm: { icon: 42, text: 'text-lg', sub: 'text-[10px]' },
+    md: { icon: 52, text: 'text-xl', sub: 'text-[11px]' },
+    lg: { icon: 64, text: 'text-2xl', sub: 'text-xs' },
+    xl: { icon: 80, text: 'text-3xl', sub: 'text-sm' }
+  };
+
+  const currentSize = sizeMap[size] || sizeMap.md;
+  const isLight = textColor === 'light';
+
+  return (
+    <div className={`inline-flex items-center gap-3 select-none ${className}`} id="puzzlekala-brand-logo">
+      {/* Exact Logo Graphic */}
+      <div 
+        style={{ width: currentSize.icon, height: currentSize.icon }} 
+        className="shrink-0 transition-transform duration-200 group-hover:scale-105"
+      >
+        <svg
+          viewBox="0 0 240 240"
+          className="w-full h-full drop-shadow-xs"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            {/* Top Half Red Fill */}
+            <linearGradient id="pkExactRed" x1="30%" y1="10%" x2="70%" y2="90%">
+              <stop offset="0%" stopColor="#961725" />
+              <stop offset="60%" stopColor="#871420" />
+              <stop offset="100%" stopColor="#700d17" />
+            </linearGradient>
+
+            {/* Bottom Half Teal Fill */}
+            <linearGradient id="pkExactTeal" x1="20%" y1="20%" x2="80%" y2="80%">
+              <stop offset="0%" stopColor="#0f869b" />
+              <stop offset="60%" stopColor="#0c788c" />
+              <stop offset="100%" stopColor="#085f6f" />
+            </linearGradient>
+
+            {/* Glossy Reflection on Red */}
+            <linearGradient id="pkGlossShine" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.45" />
+              <stop offset="50%" stopColor="#ffffff" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.0" />
+            </linearGradient>
+
+            {/* Clip for Inner White Area */}
+            <clipPath id="whiteSquareClip">
+              <rect x="36" y="36" width="168" height="168" rx="8" />
+            </clipPath>
+
+            {/* Red Upper Half Clip */}
+            <clipPath id="clipUpperRed">
+              <polygon points="0,0 260,0 260,146 0,104" />
+            </clipPath>
+
+            {/* Teal Lower Half Clip */}
+            <clipPath id="clipLowerTeal">
+              <polygon points="0,104 260,146 260,260 0,260" />
+            </clipPath>
+          </defs>
+
+          {/* 1. Outer Square Frame with Thick Black Rounded Border */}
+          <rect x="16" y="16" width="208" height="208" rx="44" fill="#000000" />
+          <rect x="36" y="36" width="168" height="168" rx="8" fill="#ffffff" />
+
+          {/* 2. Background Jigsaw Puzzle Grid Lines (faint gray) */}
+          <g clipPath="url(#whiteSquareClip)" stroke="#d5dbe0" strokeWidth="1.3" fill="none">
+            <path d="M 36 78 H 76 C 76 66, 92 66, 92 78 H 138 C 138 90, 154 90, 154 78 H 204" />
+            <path d="M 36 120 H 68 C 68 132, 84 132, 84 120 H 126 C 126 108, 142 108, 142 120 H 204" />
+            <path d="M 36 162 H 92 C 92 150, 108 150, 108 162 H 152 C 152 174, 168 174, 168 162 H 204" />
+
+            <path d="M 78 36 V 76 C 66 76, 66 92, 78 92 V 138 C 90 138, 90 154, 78 154 V 204" />
+            <path d="M 120 36 V 68 C 132 68, 132 84, 120 84 V 126 C 108 126, 108 142, 120 142 V 204" />
+            <path d="M 162 36 V 92 C 150 92, 150 108, 162 108 V 152 C 174 152, 174 168, 162 168 V 204" />
+          </g>
+
+          {/* 3. Exact Main Tilted Puzzle Piece */}
+          <g transform="translate(120, 120) rotate(-24) translate(-120, -120)">
+            
+            <g id="exact-puzzle-silhouette">
+              
+              {/* Teal Bottom Half */}
+              <g clipPath="url(#clipLowerTeal)">
+                <path
+                  d="M 80 58
+                     C 78 40, 102 22, 122 22
+                     C 142 22, 158 40, 148 60
+                     C 146 66, 152 72, 158 76
+                     C 176 72, 194 88, 188 108
+                     C 182 124, 164 124, 160 120
+                     C 170 128, 190 140, 184 162
+                     C 178 178, 156 182, 144 170
+                     C 136 178, 94 188, 76 172
+                     C 68 166, 64 148, 66 134
+                     C 68 124, 90 120, 96 102
+                     C 100 86, 86 72, 70 72
+                     C 66 72, 74 62, 80 58 Z"
+                  fill="url(#pkExactTeal)"
+                />
+
+                {/* Teal Outer Rim Accent */}
+                <path
+                  d="M 184 162
+                     C 178 178, 156 182, 144 170
+                     C 136 178, 94 188, 76 172
+                     C 68 166, 64 148, 66 134"
+                  fill="none"
+                  stroke="#26c6da"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Red Top Half */}
+              <g clipPath="url(#clipUpperRed)">
+                <path
+                  d="M 80 58
+                     C 78 40, 102 22, 122 22
+                     C 142 22, 158 40, 148 60
+                     C 146 66, 152 72, 158 76
+                     C 176 72, 194 88, 188 108
+                     C 182 124, 164 124, 160 120
+                     C 170 128, 190 140, 184 162
+                     C 178 178, 156 182, 144 170
+                     C 136 178, 94 188, 76 172
+                     C 68 166, 64 148, 66 134
+                     C 68 124, 90 120, 96 102
+                     C 100 86, 86 72, 70 72
+                     C 66 72, 74 62, 80 58 Z"
+                  fill="url(#pkExactRed)"
+                />
+
+                {/* Glossy Reflection Sweep across Red Top Half */}
+                <path
+                  d="M 86 54
+                     C 84 38, 104 26, 120 26
+                     C 136 26, 148 38, 142 54
+                     C 138 66, 154 78, 168 84
+                     C 152 108, 116 118, 98 98
+                     C 86 86, 86 64, 86 54 Z"
+                  fill="url(#pkGlossShine)"
+                />
+              </g>
+
+              {/* Clean Black Dividing Line between Red & Teal */}
+              <line
+                x1="66"
+                y1="112"
+                x2="186"
+                y2="148"
+                stroke="#000000"
+                strokeWidth="5"
+                strokeLinecap="round"
+              />
+
+              {/* Solid Bold Black Border around whole Puzzle Piece */}
+              <path
+                d="M 80 58
+                   C 78 40, 102 22, 122 22
+                   C 142 22, 158 40, 148 60
+                   C 146 66, 152 72, 158 76
+                   C 176 72, 194 88, 188 108
+                   C 182 124, 164 124, 160 120
+                   C 170 128, 190 140, 184 162
+                   C 178 178, 156 182, 144 170
+                   C 136 178, 94 188, 76 172
+                   C 68 166, 64 148, 66 134
+                   C 68 124, 90 120, 96 102
+                   C 100 86, 86 72, 70 72
+                   C 66 72, 74 62, 80 58 Z"
+                fill="none"
+                stroke="#000000"
+                strokeWidth="7"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+            </g>
+
+            {/* 4. Shopping Cart Nestled in the Left Hollow Socket */}
+            <g transform="translate(42, 78)">
+              {/* Basket Outline and Handle */}
+              <path
+                d="M 0 6
+                   C 3 6, 7 6, 9 6
+                   L 14 24
+                   L 38 24
+                   L 44 8
+                   L 10 8"
+                fill="#ffffff"
+                stroke="#000000"
+                strokeWidth="3.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              {/* Basket Grid Lines */}
+              <line x1="18" y1="8" x2="19" y2="24" stroke="#000000" strokeWidth="2.4" />
+              <line x1="24" y1="8" x2="25" y2="24" stroke="#000000" strokeWidth="2.4" />
+              <line x1="30" y1="8" x2="31" y2="24" stroke="#000000" strokeWidth="2.4" />
+              <line x1="36" y1="8" x2="37" y2="24" stroke="#000000" strokeWidth="2.4" />
+              <line x1="12" y1="16" x2="41" y2="16" stroke="#000000" strokeWidth="2.4" />
+
+              {/* Wheels with White Hubs */}
+              <circle cx="17" cy="30" r="4.2" fill="#000000" />
+              <circle cx="17" cy="30" r="1.5" fill="#ffffff" />
+              <circle cx="34" cy="30" r="4.2" fill="#000000" />
+              <circle cx="34" cy="30" r="1.5" fill="#ffffff" />
+            </g>
+
+          </g>
+        </svg>
+      </div>
+
+      {/* Brand Typography */}
+      {showText && (
+        <div className="flex flex-col">
+          <span 
+            className={`font-black ${currentSize.text} tracking-tight ${
+              isLight ? 'text-white' : 'text-slate-900 group-hover:text-indigo-600'
+            } transition-colors`}
+          >
+            پازل کالا
+          </span>
+          {showSubtitle && (
+            <span 
+              className={`${currentSize.sub} font-medium -mt-0.5 ${
+                isLight ? 'text-slate-400' : 'text-slate-500'
+              } hidden sm:block`}
+            >
+              مرجع تخصصی کالای دیجیتال
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
